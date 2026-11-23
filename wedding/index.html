@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ян и Вика — 07.07.2027</title>
+<link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wine:#7b3a44;
+    --wine-dark:#5e2a33;
+    --text:#5c4a4d;
+    --bg:#efe3e4;
+    --card:#f7eef0;
+    --gold:#a89a86;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Cormorant Garamond', serif;
+    background:url('bg-water.jpg') top center / cover no-repeat, #faf5f4;
+    color:var(--text);
+    max-width:480px;
+    margin:0 auto;
+    overflow-x:hidden;
+  }
+
+  /* ── Шапка ── */
+  header{
+    position:sticky;top:0;z-index:50;
+    display:flex;align-items:center;gap:12px;
+    padding:12px 16px;
+    background:rgba(190,150,155,.92);
+    backdrop-filter:blur(4px);
+  }
+  .burger{
+    width:40px;height:40px;border:none;border-radius:10px;
+    background:#fff;display:flex;flex-direction:column;
+    justify-content:center;align-items:center;gap:6px;cursor:pointer;
+  }
+  .burger span{display:block;width:22px;height:2px;background:#4a3a3d;border-radius:2px;}
+  .add-cal{
+    flex:1;text-align:center;background:#fff;border:none;border-radius:24px;
+    padding:14px 10px;font-family:inherit;font-size:20px;color:#3d3336;cursor:pointer;
+  }
+
+  /* ── Общие блоки ── */
+  section{padding:40px 24px;text-align:center;}
+  h2{
+    font-size:26px;letter-spacing:3px;color:var(--wine);
+    text-transform:uppercase;margin-bottom:20px;font-weight:600;
+  }
+  .script{
+    font-family:'Marck Script', cursive;
+    color:var(--wine);font-size:26px;line-height:1.6;
+  }
+
+  /* ── Герой ── */
+  .hero{
+    min-height:88vh;
+    background:url('bg-ink.jpg') center top / cover no-repeat, #f6f1ee;
+    display:flex;flex-direction:column;justify-content:center;
+    align-items:flex-start;
+    padding:0 0 0 28px;
+  }
+  .hero .script{font-size:34px;color:#3d2b1f;text-shadow:0 1px 8px rgba(250,245,244,.55);}
+  .hero-date{
+    font-size:22px;letter-spacing:4px;color:#3d2b1f;margin-top:12px;
+    text-transform:uppercase;text-shadow:0 1px 6px rgba(250,245,244,.55);
+  }
+
+  /* ── Обратный отсчёт ── */
+  .countdown{
+    display:flex;justify-content:center;gap:10px;margin-top:36px;
+  }
+  .countdown div{
+    background:rgba(255,255,255,.25);border-radius:14px;padding:10px 6px;
+    min-width:64px;backdrop-filter:blur(2px);
+  }
+  .countdown b{display:block;font-size:30px;color:#3d2b1f;}
+  .countdown small{color:#3d2b1f;font-size:13px;letter-spacing:2px;}
+
+  /* ── Приветствие ── */
+  .welcome p{font-size:19px;line-height:1.7;margin-bottom:16px;}
+  .names-sign{font-family:'Marck Script',cursive;font-size:26px;color:var(--wine);margin-top:24px;}
+
+  /* ── Фото-плитка ── */
+  .tile{
+    width:230px;height:230px;margin:0 auto 26px;border-radius:28px;
+    background:url('Bmecte.jpg') center/cover;
+    background-color:#7a8f6a;
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    box-shadow:0 8px 24px rgba(90,40,50,.25);
+  }
+  .tile span{
+    font-size:34px;letter-spacing:4px;color:#f7e9b0;
+    text-shadow:0 0 12px #f7d878, 0 0 4px #fff;
+  }
+  .pair{
+    display:flex;justify-content:center;gap:16px;margin-top:26px;
+  }
+  .pair div{
+    width:130px;height:160px;border-radius:60px 60px 28px 28px;
+    background-color:#cbb;
+    background-size:cover;
+    background-position:center;
+    box-shadow:0 6px 18px rgba(90,40,50,.2);
+  }
+  .pair div:first-child{background-image:url('blizko.jpg');}
+  .pair div:last-child{background-image:url('pyka.jpg');}
+
+
+  }
+
+  /* ── Круглое фото перед календарём ── */
+  .photo-round{
+    width:180px;height:180px;
+    border-radius:50%;
+    object-fit:cover;display:block;margin:0 auto 26px;
+    box-shadow:0 6px 18px rgba(90,40,50,.2);
+    border:4px solid rgba(255,255,255,.8);
+    background-color:#e5d3d6;
+  }
+
+  /* ── Карточки-секции ── */
+  .card{
+    background:rgba(255,255,255,.75);border-radius:24px;padding:28px 22px;
+    margin:20px 0;box-shadow:0 4px 14px rgba(90,40,50,.08);
+    font-size:18px;line-height:1.7;
+  }
+
+  /* ── Маленькая картинка в «Пожеланиях по подаркам» ── */
+  .gift-pic{
+    width:140px;height:100px;
+    object-fit:cover;
+    border-radius:12px;
+    display:block;margin:18px auto;
+    box-shadow:0 4px 14px rgba(90,40,50,.15);
+    background-color:#e5d3d6;
+  }
+
+  /* ── Фото в разделе «Дресс-код» ── */
+  .dress-photo{
+    width:100%;max-width:320px;
+    height:auto;
+    border-radius:16px;
+    margin:22px auto;
+    box-shadow:0 6px 18px rgba(90,40,50,.2);
+    background-color:#e5d3d6;
+    display:block;
+  }
+
+  .day-item{margin:14px 0;}
+  .day-item b{display:block;color:var(--wine);font-size:20px;}
+
+  /* ── Кнопки ── */
+  .btn{
+    display:block;width:100%;border:none;border-radius:32px;
+    background:linear-gradient(180deg,#8a4a54,#5e2a33);
+    color:#fff;font-family:inherit;font-size:24px;padding:18px;
+    cursor:pointer;box-shadow:0 6px 18px rgba(94,42,51,.35);
+    margin:28px auto 0;max-width:340px;
+  }
+  .btn:active{transform:scale(.98);}
+  .msg-btn{
+    display:flex;align-items:center;gap:10px;justify-content:flex-start;
+    background:#fff;border:1px solid #ddd;border-radius:14px;
+    width:100%;padding:16px;font-family:inherit;font-size:19px;
+    color:#444;cursor:pointer;margin-top:24px;
+  }
+
+  /* ── Форма подтверждения ── */
+  .rsvp input,.rsvp textarea,.rsvp select{
+    width:100%;padding:12px 14px;margin:8px 0;border:1px solid #d8c4c8;
+    border-radius:12px;font-family:inherit;font-size:18px;background:#fff;
+  }
+  .rsvp{margin-top:18px;display:none;}
+  .rsvp.open{display:block;}
+
+  /* ── Календарь ── */
+  .calendar{
+    max-width:320px;margin:0 auto;background:#fff;border-radius:20px;
+    padding:18px;box-shadow:0 6px 18px rgba(90,40,50,.15);
+  }
+  .calendar h3{color:var(--wine);font-weight:600;margin-bottom:10px;}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+  .cal-grid span{padding:8px 0;font-size:16px;}
+  .cal-grid .dow{color:var(--wine);font-size:13px;letter-spacing:1px;}
+  .heart{
+    position:relative;color:var(--wine);font-weight:600;
+  }
+  .heart::after{content:'❤';position:absolute;left:50%;top:-4px;transform:translateX(-50%);font-size:22px;}
+
+  /* ── Карта ── */
+  .map-wrap{height:420px;border-radius:0;overflow:hidden;}
+  .map-wrap iframe{width:100%;height:100%;border:0;display:block;}
+  footer{padding:24px;text-align:center;font-size:15px;color:#9a8488;}
+
+.photo-round {
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  object-fit:cover;
+  display:block;
+  margin:0 auto 26px;
+  box-shadow:0 6px 18px rgba(90,40,50,.2);
+  border:4px solid rgba(255,255,255,.8);
+  background-color:#e5d3d6;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <button class="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+  <button class="add-cal" onclick="addToCalendar()">Добавить в календарь</button>
+</header>
+
+<!-- ГЕРОЙ -->
+<section class="hero">
+  <div class="script">Ян</div>
+  <div class="script">&</div>
+  <div class="script">Виктория</div>
+  <div class="hero-date">07 июля 2027</div>
+  <div class="countdown" id="countdown"></div>
+</section>
+
+<!-- ПРИВЕТСТВИЕ -->
+<section class="welcome">
+  <div class="script">Дорогие Гости!</div>
+  <div class="card">
+    <p>Мы будем рады видеть вас на долгожданном торжестве, посвящённому нашему вступлению в семейный союз.</p>
+    <p class="names-sign">С любовью Ян & Виктория</p>
+  </div>
+</section>
+
+
+<!-- ФОТО-БЛОК -->
+<section>
+  <div class="tile"><span>ЯН + ВИКА</span><span>07.07.2027</span></div>
+  <div class="script">Тан, у меня есть важная деталь!</div>
+  <div class="pair"><div></div><div></div></div>
+</section>
+
+<!-- ИМЕНА + ПОДАРКИ -->
+<section>
+  <div class="script">Ян & Виктория</div>
+  <h2>Пожелания по подаркам</h2>
+     style="width:100%;max-width:300px;border-radius:14px;margin:18px auto;display:block;
+            box-shadow:0 4px 14px rgba(90,40,50,.12);">
+
+  <!-- МАЛЕНЬКАЯ КАРТИНКА В ПОДАРКАХ -->
+  <img src="konvertik.jpg" alt="Пример подарка" class="gift-pic">
+
+  <div class="card">
+    <p>«Что подарить нам на свадьбу? Если вы задумались о подарке - самым приятным для нас будет «букет» в конверте. Такой подарок точно не завянет и поможет воплотить наши мечты В ЖИЗНЬ.
+    Цветы - это прекрасно, но, чтобы не переживать за их судьбу после праздника, мы будем рады, если вместо букета вы подарите бутылочку вашего любимого напитка. Это добавит ещё больше тепла нашему вечеру!».</p>
+    <p style="color:var(--wine);font-weight:600;"></p>
+  </div>
+</section>
+
+<!-- Немного важной информации -->
+<section>
+  <h2>Немного важной информации</h2>
+  <div class="card">
+    <p>Пожалуйста, приезжайте за 20–30 минут до начала, чтобы спокойно встретиться, оставить верхнюю одежду и занять свои места. </p>
+    <p style="margin-top:14px;">Мы будем признательны, если на свадьбе вы воздержитесь от криков «Горько», ведь поцелуй — знак выражения чувств. Он не может быть по заказу. Также предупреждаем все семьи, у которых есть детки: к сожалению, в зале ограниченное количество мест. Поэтому на торжественное мероприятие мы приглашаем только взрослых. Мы будем очень рады видеть всех на втором дне. Благодарим за понимание. </p>
+    <div class="day-item"><b>14:00</b> Церемония</div>
+  </div>
+</section>
+
+<!-- ПОДТВЕРЖДЕНИЕ -->
+<section class="rsvp-section">
+  <h2>ПОДТВЕРЖДЕНИЕ</h2>
+  <div class="card">
+    <p>Пожалуйста, подтвердите своё присутствие до 01.01.2027</p>
+  </div>
+</section>
+
+
+    <button class="btn" onclick="document.getElementById('rsvpForm').classList.toggle('open')">Заполнить анкету гостя</button>
+    <form class="rsvp" id="rsvpForm" onsubmit="return sendRsvp(event)">
+      <input type="text" placeholder="Ваше имя и фамилия" required>
+      <select required>
+        <option value="" disabled selected>Сможете ли вы присутствовать?</option>
+        <option>Да, буду!</option>
+        <option>К сожалению, не смогу</option>
+      </select>
+      <textarea rows="3" placeholder="Пожелания молодожёнам (необязательно)"></textarea>
+      <button class="msg-btn" onclick="sendMessage()">💬 Добавить сообщение для жениха и невесты</button>
+    </form>
+</div>
+</section>
+
+
+<!-- КРУГЛОЕ ФОТО ПЕРЕД КАЛЕНДАРЁМ -->
+<section>
+  <img src="zary.jpg" alt="Фото Яна и Вики" class="photo-round">
+</section>
+
+<!-- КАЛЕНДАРЬ -->
+<section>
+  <div class="calendar">
+    <h3>Июль</h3>
+    <div class="cal-grid" id="calGrid"></div>
+  </div>
+</section>
+
+<!-- ФОТО + ДРЕСС-КОД -->
+<section>
+  <h2 style="margin-top:40px;">Дресс-код</h2>
+  <p style="font-size:19px;">Будем благодарны, если при выборе нарядов на наше торжество вы придержитесь следующей палитры:</p>
+  <img src="ctul.jpg" alt="Цветовая палитра свадьбы"
+     style="width:100%;max-width:340px;border-radius:16px;margin:22px auto;display:block;
+            box-shadow:0 4px 14px rgba(90,40,50,.15);">
+
+  <div class="script">Постарайтесь при выборе наряда постараться придерживаться заданной цветовой гаммы — любые оттенки допустимы.
+Ждём Вас на свадьбе!</div>
+
+  <button class="btn" onclick="alert('Спасибо! Ваш ответ отправлен молодожёнам 💛')">✔ Подтвердить</button>
+  <button class="msg-btn" onclick="aler
+
+
+t('Здесь можно оставить сообщение для жениха и невесты')">💬 Добавить сообщение для жениха и невесты</button>
+</section>
+
+<!-- КАРТА -->
+<div class="map-wrap">
+  <iframe src="https://yandex.ru/map-widget/v1/?ll=43.870790%2C56.350372&z=16&pt=43.870790,56.350372,pm2rdm" title="Карта"></iframe>
+</div>
+
+<footer>С любовью, Ян и Вика · 07.07.2027</footer>
+
+<script>
+/* Обратный отсчёт до 07.07.2027 14:00 */
+const wedding = new Date('2027-07-07T14:00:00');
+function tick(){
+  let diff = wedding - new Date();
+  if(diff < 0) diff = 0;
+  const d = Math.floor(diff/864e5),
+        h = Math.floor(diff/36e5)%24,
+        m = Math.floor(diff/6e4)%60,
+        s = Math.floor(diff/1e3)%60;
+  document.getElementById('countdown').innerHTML =
+    `<div><b>${d}</b><small>дней</small></div>
+     <div><b>${h}</b><small>часов</small></div>
+     <div><b>${m}</b><small>минут</small></div>
+     <div><b>${s}</b><small>секунд</small></div>`;
+}
+tick(); setInterval(tick, 1000);
+
+/* Календарь июля 2027, сердечко на 7-м */
+(function(){
+  const grid = document.getElementById('calGrid');
+  ['пн','вт','ср','чт','пт','сб','вс'].forEach(d=>{
+    grid.insertAdjacentHTML('beforeend', `<span class="dow">${d}</span>`);
+  });
+  // 1 июля 2027 — четверг (индекс 3 при неделе с понедельника)
+  for(let i=0;i<3;i++) grid.insertAdjacentHTML('beforeend','<span></span>');
+  for(let day=1; day<=31; day++){
+    grid.insertAdjacentHTML('beforeend',
+      `<span class="${day===7?'heart':''}">${day}</span>`);
+  }
+})();
+
+/* «Добавить в календарь» — скачивает .ics файл */
+function addToCalendar(){
+  const ics = [
+    'BEGIN:VCALENDAR','VERSION:2.0','BEGIN:VEVENT',
+    'DTSTART:20270707T140000',
+    'DTEND:20270707T230000',
+    'SUMMARY:Свадьба Яна и Вики',
+    'LOCATION:Нижний Новгород, ул. Щербакова, 10 (Заречный дом бракосочетания)',
+    'END:VEVENT','END:VCALENDAR'
+  ].join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([ics], {type:'text/calendar'}));
+  a.download = 'wedding-yan-vika.ics';
+  a.click();
+}
+
+/* === Ссылка на ваш Apps Script — вставьте свой URL === */
+const SCRIPT_URL = https://script.google.com/macros/s/AKfycbw4kAYCYTQKJ-Kx0GJTqyqtWySMhYzgkL0XB9bV0m5Eepmpyq41PZK2qJZZZ3i8FzQLcQ/exec';
+
+function sendRsvp(e) {
+  e.preventDefault();
+  const btn = document.getElementById('rsvpBtn');
+  btn.disabled = true;
+  btn.textContent = 'Отправляем…';
+
+  const payload = {
+    name:    document.getElementById('guestName').value,
+    attend:  document.getElementById('guestAttend').value,
+    wish:    document.getElementById('guestWish').value
+  };
+
+  // no-cors обязателен: Apps Script не отдаёт CORS-заголовки напрямую
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'text/plain;charset=utf-8'},
+    body: JSON.stringify(payload)
+  })
+  .finally(() => {
+    document.getElementById('rsvpForm').style.display = 'none';
+    document.getElementById('rsvpThanks').style.display = 'block';
+  });
+  return false;
+}
+
+/* Сообщение молодожёнам — та же таблица, колонка «Пожелание» */
+function sendMessage() {
+  const msg = prompt('Ваше сообщение для Яна и Вики:');
+  if (!msg) return;
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'text/plain;charset=utf-8'},
+    body: JSON.stringify({name: 'Сообщение гостя', attend: '—', wish: msg})
+  }).finally(() => alert('Спасибо за тёплые слова! 💛'));
+}
+</script>
+</body>
+</html>
