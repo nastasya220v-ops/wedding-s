@@ -384,26 +384,30 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKrHqd3Tp0Vwb7YkJ7v
 function sendRsvp(e) {
   e.preventDefault();
   const btn = document.getElementById('rsvpBtn');
+  const msg = document.getElementById('rsvpMsg');
   btn.disabled = true;
   btn.textContent = 'Отправляем…';
 
   const payload = {
-    name:    document.getElementById('guestName').value,
-    attend:  document.getElementById('guestAttend').value,
-    wish:    document.getElementById('guestWish').value
+    name:   document.getElementById('guestName').value,
+    attend: document.getElementById('guestAttend').value,
+    wish:   document.getElementById('guestWish') ? document.getElementById('guestWish').value : ''
   };
 
-  // no-cors обязателен: Apps Script не отдаёт CORS-заголовки напрямую
   fetch(SCRIPT_URL, {
     method: 'POST',
-    mode: 'no-cors',
-    headers: {'Content-Type': 'text/plain;charset=utf-8'},
     body: JSON.stringify(payload)
   })
-  .finally(() => {
-    document.getElementById('rsvpForm').style.display = 'none';
-    document.getElementById('rsvpThanks').style.display = 'block';
-  });
+    .then(() => {
+      btn.textContent = 'Готово ✔';
+      if (msg) msg.style.display = 'block';
+    })
+    .catch(() => {
+      btn.disabled = false;
+      btn.textContent = 'Отправить';
+      alert('Не получилось отправить. Проверьте интернет и попробуйте ещё раз.');
+    });
+
   return false;
 }
 
