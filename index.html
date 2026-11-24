@@ -279,15 +279,16 @@
 
 
     <button class="btn" onclick="document.getElementById('rsvpForm').classList.toggle('open')">Заполнить анкету гостя</button>
-    <form class="rsvp" id="rsvpForm" onsubmit="return sendRsvp(event)">
-      <input type="text" placeholder="Ваше имя и фамилия" required>
-      <select required>
-        <option value="" disabled selected>Сможете ли вы присутствовать?</option>
-        <option>Да </option>
-        <option>Не смогу</option>
-      </select>
-      <button class="msg-btn" onclick="sendMessage()">💬 Добавить сообщение для жениха и невесты</button>
-    </form>
+  <form class="rsvp" id="rsvpForm" onsubmit="return sendRsvp(event)">
+  <input type="text" id="guestName" name="name" placeholder="Ваше имя и фамилия" required>
+  <select id="guestAttend" name="attend" required>
+    <option value="" disabled selected>Сможете ли вы присутствовать?</option>
+    <option value="Да, буду">Да, буду</option>
+    <option value="Не смогу">Не смогу</option>
+  </select>
+  <textarea id="guestWish" name="wish" placeholder="Пожелания для жениха и невесты"></textarea>
+  <button class="btn" type="submit" id="rsvpBtn">Отправить</button>
+</form>
 </div>
 </section>
 
@@ -379,7 +380,7 @@ function addToCalendar(){
 }
 
 /* === Ссылка на ваш Apps Script — вставьте свой URL === */
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4kAYCYTQKJ-Kx0GJTqyqtWySMhYzgkL0XB9bV0m5Eepmpyq41PZK2qJZZZ3i8FzQLcQ/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKrHqd3Tp0Vwb7YkJ7vM48ioy084ipP6z1AV8WrDG-vlpNtEEla-UHX0ujdo33voNamQ/exec';
 
 function sendRsvp(e) {
   e.preventDefault();
